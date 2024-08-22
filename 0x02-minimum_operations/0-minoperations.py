@@ -8,13 +8,13 @@ result in exactly n H characters in the file
 def minOperations(n):
     if n <= 1:
         return 0
-    operation = 0
-    factor = 2
+    op = 0
+    fac = 2
 
     while n > 1:
-        if n % factor == 0:
+        if n % fact == 0:
             while n % factor == 0:
-                n = n / factor
-                operation += factor
+                n = n / fac
+                op += fac
         factor += 1
-    return operation
+    return op
