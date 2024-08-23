@@ -12,9 +12,9 @@ def minOperations(n):
     fac = 2
 
     while n > 1:
-        if n % fact == 0:
-            while n % factor == 0:
+        if n % fac == 0:
+            while n % fac == 0:
                 n = n / fac
                 op += fac
-        factor += 1
+        fac += 1
     return op
