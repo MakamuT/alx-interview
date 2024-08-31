@@ -20,7 +20,10 @@ try:
         count += 1
         s = line.split()
 
-        if len(s) < 7:
+        if len(s) < 9:
+            continue
+
+        if s[5] != '"GET' or s[6] != '/projects/260' or s[7] != 'HTTP/1.1"':
             continue
 
         try:
