@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
 
 async function getMovieCharacters(movieId) {
   const movieUrl = `https://swapi.dev/api/films/${movieId}/`;
