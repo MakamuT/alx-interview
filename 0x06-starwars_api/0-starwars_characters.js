@@ -1,4 +1,3 @@
-
 #!/usr/bin/node
 import fetch from 'node-fetch';
 
