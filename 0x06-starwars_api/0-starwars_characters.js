@@ -1,26 +1,42 @@
 #!/usr/bin/node
-import fetch from 'node-fetch';
+const request = require('request');
 
-async function getMovieCharacters(movieId) {
+function getMovieCharacters(movieId) {
     const movieUrl = `https://swapi.dev/api/films/${movieId}/`;
 
-    try {
-        const movieResponse = await fetch(movieUrl);
-        if (!movieResponse.ok) {
-            throw new Error(`Error: Received status code ${movieResponse.status}`);
+    request(movieUrl, (error, response, body) => {
+        if (error) {
+            console.error(`Error fetching movie data: ${error.message}`);
+            return;
         }
 
-        const movieData = await movieResponse.json();
+        if (response.statusCode !== 200) {
+            console.error(`Error: Received status code ${response.statusCode}`);
+            return;
+        }
+
+        const movieData = JSON.parse(body);
         console.log(`Characters in '${movieData.title}':\n`);
 
-        for (const characterUrl of movieData.characters) {
-            const characterResponse = await fetch(characterUrl);
-            const characterData = await characterResponse.json();
-            console.log(characterData.name);
-        }
-    } catch (error) {
-        console.error(`Error fetching data: ${error.message}`);
-    }
+        movieData.characters.forEach((characterUrl) => {
+            
+            request(characterUrl, (error, response, body) => {
+                if (error) {
+                    console.error(`Error fetching character data: ${error.message}`);
+                    return;
+                }
+
+                if (response.statusCode !== 200) {
+                    console.error(`Error: Received status code ${response.statusCode}`);
+                    return;
+                }
+
+            
+                const characterData = JSON.parse(body);
+                console.log(characterData.name);
+            });
+        });
+    });
 }
 
 const movieId = process.argv[2];
@@ -29,3 +45,4 @@ if (!movieId) {
 } else {
     getMovieCharacters(movieId);
 }
+
