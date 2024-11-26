@@ -3,8 +3,9 @@
 def makeChange(coins, total):
     """
     Return: fewest number of coins needed to meet total
-    If total is 0 or less, return 0
-    If total cannot be met by any number of coins you have, return -1
+    Args:
+    coins (list): List of coin denominations.
+    total (int): The total amount to make.
     """
 
     if total <= 0:
